@@ -29,10 +29,10 @@ public class Bot extends ListenerAdapter
         // getContent() is a lazy getter which modifies the content for e.g. console view (strip discord formatting)
         if (content.equals("Bread"))
         {
-            String name = message.getAuthor().getId();
+            String name = message.getAuthor().getId(); //Get ID from message author
             MessageChannel channel = event.getChannel();
             channel.sendMessage("Butter").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
-            channel.sendMessage(name).queue();
+            channel.sendMessage(name).queue(); //Reply ID of messanger
         }
     }
 }
