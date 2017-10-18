@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.core.managers.GuildController;
 
 public class Bot extends ListenerAdapter
 {
@@ -25,14 +26,19 @@ public class Bot extends ListenerAdapter
         // We don't want to respond to other bot accounts, including ourself
         Message message = event.getMessage();
         String content = message.getRawContent();
+        GuildController controller  = new GuildController(event.getGuild());
         // getRawContent() is an atomic getter
         // getContent() is a lazy getter which modifies the content for e.g. console view (strip discord formatting)
-        if (content.equals("Bread"))
-        {
-            String name = message.getAuthor().getId(); //Get ID from message author
+        if (content.equals("Bread")) {
+            String name = message.getAuthor().getId();
             MessageChannel channel = event.getChannel();
             channel.sendMessage("Butter").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
-            channel.sendMessage(name).queue(); //Reply ID of messanger
+        }
+        if (content.equals("Role me")) {
+            String name = message.getAuthor().getId();
+            MessageChannel channel = event.getChannel();
+            controller.addRolesToMember(message.getMember(), event.getGuild().getRoleById("368984671100600321")).queue();
+            //channel.sendMessage(event.getGuild().getRoleById("368984671100600321").getName()).queue();
         }
     }
 }
