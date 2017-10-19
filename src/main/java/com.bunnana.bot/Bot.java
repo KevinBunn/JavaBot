@@ -4,6 +4,7 @@ import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.managers.GuildController;
@@ -42,6 +43,20 @@ public class Bot extends ListenerAdapter
             channel.sendMessage("Assigned User: " + event.getMember().getUser().getName()
                     + " to " + event.getGuild().getRoleById("368984671100600321").getName()).queue();
         }
+    }
+    @Override
+    public void onGuildMemberJoin(GuildMemberJoinEvent event){
+        //Declare who joined.
+        String memberJoined = event.getMember().getAsMention();
+        MessageChannel channel = event.getGuild().getTextChannelById("369011624063008768");
+        channel.sendMessage(memberJoined + " has joined!").queue();
+
+        //Assign RECRUIT to new member
+        GuildController controller  =  event.getGuild().getController();
+        controller.addRolesToMember(event.getMember(), event.getGuild().getRoleById("368984671100600321")).queue();
+        channel.sendMessage("Assigned User: " + event.getMember().getUser().getName()
+                + " to " + event.getGuild().getRoleById("368984671100600321").getName()).queue();
+
     }
 }
 
