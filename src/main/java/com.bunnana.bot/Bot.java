@@ -48,8 +48,8 @@ public class Bot extends ListenerAdapter
     public void onGuildMemberJoin(GuildMemberJoinEvent event){
         //Declare who joined.
         String memberJoined = event.getMember().getAsMention();
-        MessageChannel channel = event.getGuild().getTextChannelById("369011624063008768");
-        channel.sendMessage(memberJoined + " has joined!").queue();
+        MessageChannel channel = event.getGuild().getTextChannelById("368981955594682422");
+        channel.sendMessage(memberJoined + " has joined! Say hello!").queue();
 
         //Assign RECRUIT to new member
         GuildController controller  =  event.getGuild().getController();
